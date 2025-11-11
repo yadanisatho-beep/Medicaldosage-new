@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"> 
+  <meta charset="UTF-8" /> 
+  <title>Login - Medical System</title> 
+  <link rel="preconnect" href="https://fonts.googleapis.com" /> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> 
+  <link href="https://fonts.googleapis.com/css2?family=K2D:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" /> 
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "K2D", sans-serif;
+      background-color: #CBEAEB; 
+    }
+    
+    header {
+      background: linear-gradient(135deg, #39AC95 100%, #2E8B7A 0%);
+      display: flex;
+      align-items: center;
+      padding: 15px 30px;
+      position: relative;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .logo-container {
+      position: relative;
+      width: fit-content;
+      margin: 50px 0 0 20px;
+      text-align: start;
+    }
+
+    .pills-background {
+      width: 210px;
+      opacity: 0.9;
+      margin-top: -60px;
+      transform: translateX(-25px);
+    }
+    
+    nav {
+      margin-left: auto;
+      display: flex;
+      gap: 20px;
+    }
+    
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 18px;
+      transition: all 0.3s;
+      padding: 8px 15px;
+      border-radius: 8px;
+      position: relative;
+    }
+    
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+    
+    .login-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.3s;
+      margin-left: 20px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .login-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+    
+    .auth-form {
+      max-width: 610px;
+      margin: 50px auto;
+      background: #f8efef;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      outline: none;
+      border-color: #39AC95;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #39AC95 0%, #2E8B7A 100%);
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(57, 172, 149, 0.3);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .medical-icon {
+      display: flex;             
+      align-items: center;        
+      justify-content: center;   
+      gap: 7px;                  
+      font-size: 22px;
+      margin-bottom: 14px;
+      font-weight: bolder;
+      color: #2c3e50;
+    }
+
+    .form-switch {
+      text-align: center;
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .switch-text {
+      color: #7f8c8d;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .switch-btn {
+      background: none;
+      border: none;
+      color: #39AC95;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: underline;
+      transition: all 0.3s;
+    }
+
+    .switch-btn:hover {
+      color: #2E8B7A;
+      transform: scale(1.05);
+    }
+
+    .login-form, .register-form {
+      display: none;
+    }
+
+    .login-form.active, .register-form.active {
+      display: block;
+    }
+
+    .register-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .register-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(231, 76, 60, 0.3);
+    }
+
+    .register-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 15px;
+    }
+
+    .form-row .form-group {
+      flex: 1;
+    }
+
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .popup-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .popup-container {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      max-width: 450px;
+      width: 90%;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+      transform: scale(0.8);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .popup-overlay.show .popup-container {
+      transform: scale(1);
+    }
+
+    .popup-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      gap: 12px;
+    }
+
+    .popup-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: white;
+    }
+
+    .popup-icon.success {
+      background: linear-gradient(135deg, #27ae60, #2ecc71);
+    }
+
+    .popup-icon.error {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+    }
+
+    .popup-icon.warning {
+      background: linear-gradient(135deg, #f39c12, #e67e22);
+    }
+
+    .popup-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #2c3e50;
+      margin: 0;
+    }
+
+    .popup-message {
+      text-align: center;
+      color: #7f8c8d;
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+
+    .popup-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .popup-btn {
+      padding: 10px 25px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 14px;
+    }
+
+    .popup-btn.primary {
+      background: linear-gradient(135deg, #39AC95, #2E8B7A);
+      color: white;
+    }
+
+    .popup-btn.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(57, 172, 149, 0.3);
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: #bdc3c7;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .popup-close:hover {
+      color: #7f8c8d;
+      transform: rotate(90deg);
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .remember-me input[type="checkbox"] {
+      width: auto;
+      margin: 0;
+    }
+    /* Hospital Autocomplete Dropdown */
+.hospital-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 2px solid #39AC95;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 1000;
+  display: none;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  margin-top: -2px;
+}
+
+.hospital-item {
+  padding: 12px 15px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  transition: all 0.2s ease;
+}
+
+.hospital-item:hover {
+  background: linear-gradient(135deg, #e8f8f5 0%, #d5f4ec 100%);
+  padding-left: 20px;
+}
+
+.hospital-name {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.hospital-info {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  font-size: 13px;
+}
+
+.hospital-province {
+  color: #7f8c8d;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.hospital-province i {
+  color: #e74c3c;
+  font-size: 12px;
+}
+
+.hospital-type {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.hospital-dropdown::-webkit-scrollbar {
+  width: 8px;
+}
+
+.hospital-dropdown::-webkit-scrollbar-thumb {
+  background: #39AC95;
+  border-radius: 4px;
+}
+/* ========== MOBILE OPTIMIZATION ========== */
+
+@media (max-width: 768px) {
+  /* ===== Header ===== */
+  header {
+    padding: 8px 15px;
+    flex-wrap: wrap;
+  }
+
+  .logo-container {
+    margin: 0;
+  }
+
+  .pills-background {
+    width: 150px;
+    margin-top: -40px;
+    transform: translateX(-10px);
+  }
+
+  /* ===== Navigation ===== */
+  nav {
+    margin-left: 0;
+    width: 100%;
+    gap: 8px;
+    margin-top: 8px;
+    overflow-x: auto;
+    padding: 8px 0;
+  }
+
+  nav a {
+    font-size: 13px;
+    padding: 6px 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .user-menu {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+
+  .user-btn {
+    font-size: 11px;
+    padding: 6px 12px;
+  }
+
+  /* ===== Main Title ===== */
+  .main-title {
+    font-size: 22px;
+    margin: 20px 10px;
+    gap: 8px;
+  }
+
+  /* ===== Container ===== */
+  .container {
+    max-width: 90%;
+    padding: 15px;
+    margin: 20px auto;
+  }
+
+  /* ===== Form Elements ===== */
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="number"],
+  select,
+  textarea {
+    padding: 12px 12px;
+    font-size: 16px; /* ป้องกัน auto-zoom บน iOS */
+  }
+
+  /* ===== Buttons ===== */
+  button,
+  .btn,
+  .submit-btn,
+  .calculate-button {
+    padding: 12px 20px;
+    font-size: 15px;
+    min-height: 44px; /* Touch target size */
+    min-width: 44px;
+  }
+
+  /* ===== Cards & Sections ===== */
+  .medicine-cards {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .info-section {
+    padding: 15px;
+  }
+
+  /* ===== Tables ===== */
+  .table-header,
+  .table-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .table-header {
+    display: none; /* ซ่อน header บน mobile */
+  }
+
+  .table-row {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+
+  .table-row::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #39AC95;
+  }
+
+  /* ===== Modal ===== */
+  .modal-content {
+    width: 95%;
+    padding: 20px;
+  }
+
+  /* ===== Popup ===== */
+  .popup-container {
+    width: 90%;
+    padding: 20px;
+  }
+
+  /* ===== Grid Layouts ===== */
+  .patient-medicine-info {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-box {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .action-box {
+    min-height: 120px;
+    padding: 20px 15px;
+  }
+
+  .action-box .icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .action-box span {
+    font-size: 16px;
+  }
+
+  /* ===== Search ===== */
+  .search-container {
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  .search-input {
+    padding: 10px 12px;
+    font-size: 16px;
+  }
+
+  /* ===== dosage boxes ===== */
+  .dosage-boxes {
+    grid-template-columns: 1fr;
+  }
+
+  /* ===== Form rows ===== */
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .form-row .form-group {
+    margin-bottom: 15px;
+  }
+
+  .w3-col.s6 {
+    padding: 0 !important;
+    margin-bottom: 15px;
+  }
+}
+
+/* ========== EXTRA SMALL DEVICES ========== */
+
+@media (max-width: 480px) {
+  header {
+    padding: 6px 10px;
+  }
+
+  .pills-background {
+    width: 120px;
+    margin-top: -30px;
+    transform: translateX(-5px);
+  }
+
+  .main-title {
+    font-size: 18px;
+    margin: 15px 10px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  nav a {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+
+  button,
+  .btn,
+  .submit-btn,
+  .calculate-button {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  .form-label {
+    font-size: 14px;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="number"],
+  select,
+  textarea {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .container {
+    padding: 10px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  /* ป้องกัน double-tap zoom delay */
+  input,
+  select,
+  textarea,
+  button {
+    touch-action: manipulation;
+  }
+}
+
+/* ========== Landscape Mode ========== */
+
+@media (max-height: 500px) {
+  header {
+    padding: 6px 15px;
+  }
+
+  .pills-background {
+    width: 100px;
+    margin-top: -20px;
+  }
+
+  nav {
+    gap: 5px;
+  }
+
+  nav a {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}
+  </style>
+</head>
+<body>
+<header>
+  <div class="logo-container">
+    <img src="logopj.png" alt="Pills" class="pills-background">
+  </div>
+  <nav>
+    <a href="homepage.html">หน้าหลัก</a>
+    <a href="managepatientdata.html">จัดการข้อมูลผู้ป่วย</a>
+    <a href="medicine.html">ข้อมูลยา</a>
+    <a href="calculatemed.html">คำนวณปริมาณยา</a>
+    <a href="history.html">ประวัติการคำนวณยา</a>
+    <div id="authSection">
+      <a href="login.html" class="login-btn">เข้าสู่ระบบ</a>
+    </div>
+  </nav>
+</header>
+  
+<div class="auth-form" id="authForm">
+  <!-- Login Form -->
+  <div class="login-form active" id="loginForm">
+    <div class="medical-icon">
+      <i class="fa-solid fa-user-doctor"></i>
+      <span>เข้าสู่ระบบ</span>
+    </div>
+    <div style="text-align:center; font-size: 15px; margin-bottom:35px; font-weight:bolder; color: #7f8c8d;">ระบบคำนวณปริมาณยาสำหรับแพทยศาสตร์</div>
+    <form id="loginFormElement">
+      <div class="form-group">
+        <label for="loginUsername">ชื่อผู้ใช้:</label>
+        <input type="text" id="loginUsername" name="username" required placeholder="กรุณากรอกชื่อผู้ใช้">
+      </div>
+
+      <div class="form-group">
+        <label for="loginPassword">รหัสผ่าน:</label>
+        <input type="password" id="loginPassword" name="password" required placeholder="กรุณากรอกรหัสผ่าน">
+      </div>
+
+      <div class="remember-me">
+        <input type="checkbox" id="rememberMe" name="rememberMe">
+        <label for="rememberMe">จดจำการเข้าสู่ระบบ</label>
+      </div>
+
+      <button type="submit" class="submit-btn" id="loginBtn">เข้าสู่ระบบ</button>
+    </form>
+    
+    <div class="form-switch">
+      <div class="switch-text">ยังไม่มีบัญชีผู้ใช้?</div>
+      <button class="switch-btn" id="switch-to-register">สมัครสมาชิก</button>
+    </div>
+  </div>
+
+  <!-- Register Form -->
+  <div class="register-form" id="registerForm">
+    <div class="medical-icon">
+      <i class="fa-solid fa-user-plus"></i>
+      <span>สมัครสมาชิก</span>
+    </div>
+    <div style="text-align:center; font-size: 15px; margin-bottom:35px; font-weight:bolder; color: #7f8c8d;">สร้างบัญชีสำหรับแพทยศาสตร์</div>
+    <form id="registerFormElement">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">ชื่อ:</label>
+          <input type="text" id="firstName" name="firstName" required placeholder="กรุณากรอกชื่อ">
+        </div>
+        <div class="form-group">
+          <label for="lastName">นามสกุล:</label>
+          <input type="text" id="lastName" name="lastName" required placeholder="กรุณากรอกนามสกุล">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="registerEmail">อีเมล:</label>
+        <input type="email" id="registerEmail" name="email" required placeholder="กรอกอีเมลของคุณ"> 
+      </div>
+
+      <div class="form-group">
+        <label for="licenseNumber">เลขใบประกอบวิชาชีพ:</label>
+        <input type="text" id="licenseNumber" name="licenseNumber" required 
+               placeholder="กรอกเลขใบประกอบวิชาชีพ (ตัวอย่าง: LIC-0000-ABC)"
+               maxlength="12"> <div id="licenseNumber-message" style="margin-top: 5px; font-size: 14px; font-weight: 500;"></div>
+      </div>
+
+      <div class="form-group" style="position: relative;">
+        <label for="registerHospital">โรงพยาบาล/คลินิก:</label>
+        <input 
+          type="text" 
+          id="registerHospital"
+          name="hospitalName"
+          placeholder="พิมพ์เพื่อค้นหาโรงพยาบาล..." 
+          autocomplete="off"
+          required
+        >
+        <div id="hospitalSuggestions" class="hospital-dropdown"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="registerUsername">ชื่อผู้ใช้:</label>
+        <input type="text" id="registerUsername" name="username" required placeholder="กรุณากรอกชื่อผู้ใช้">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="registerPassword">รหัสผ่าน:</label>
+          <input type="password" id="registerPassword" name="password" required placeholder="ความยาวอย่างน้อย 6 ตัวอักษร">
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">ยืนยันรหัสผ่าน:</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="กรอกรหัสผ่านอีกครั้ง">
+        </div>
+      </div>
+
+      <button type="submit" class="register-btn" id="registerBtn" disabled>สมัครสมาชิก</button>
+    </form>
+    
+    <div class="form-switch">
+      <div class="switch-text">มีบัญชีผู้ใช้แล้ว?</div>
+      <button class="switch-btn" id="switch-to-login">เข้าสู่ระบบ</button>
+    </div>
+  </div>
+</div>
+
+<!-- Custom Popup -->
+<div class="popup-overlay" id="customPopup">
+  <div class="popup-container">
+    <button class="popup-close" onclick="closeCustomPopup()">&times;</button> <div class="popup-header">
+      <div class="popup-icon success" id="popupIcon"> <i class="fas fa-check" id="popupIconSymbol"></i>
+      </div>
+      <h3 class="popup-title" id="popupTitle">แจ้งเตือน</h3>
+    </div>
+    <div class="popup-message" id="popupMessage">
+      ข้อความแจ้งเตือน
+    </div>
+    <div class="popup-buttons">
+      <button class="popup-btn primary" onclick="closeCustomPopup()">ตกลง</button> </div>
+  </div>
+</div>
+
+<script src="clienthelper.js"></script>
+<script src="app.js?v=6"></script>
+
+<script>
+// Prevent errors from Browser Extensions
+window.addEventListener('error', function(e) {
+  if (e.message && e.message.includes('message channel closed')) {
+    console.warn('⚠️ Browser Extension Error (ignored):', e.message);
+    e.preventDefault();
+    return true;
+  }
+});
+
+window.addEventListener('unhandledrejection', function(e) {
+  if (e.reason && e.reason.message && e.reason.message.includes('message channel closed')) {
+    console.warn('⚠️ Browser Extension Promise Error (ignored)');
+    e.preventDefault();
+  }
+});
+
+// ✅ Verify scripts loaded AFTER page is fully loaded
+window.addEventListener('load', () => {
+  console.log('=== SCRIPT VERIFICATION ===');
+  console.log('✅ API_BASE:', window.API_BASE);
+  console.log('✅ getApiBase function exists:', typeof window.getApiBase === 'function');
+  console.log('✅ getCurrentUser function exists:', typeof window.getCurrentUser === 'function');
+  console.log('✅ showCustomPopup function exists:', typeof window.showCustomPopup === 'function');
+  console.log('✅ loadHospitalData function exists:', typeof window.loadHospitalData === 'function');
+  console.log('=========================');
+  
+  if (!window.API_BASE) {
+    console.error('❌ CRITICAL: API_BASE is undefined!');
+    console.error('Check that clienthelper.js loaded successfully');
+  }
+});
+
+// Also log immediately (before full page load)
+console.log('📍 Initial check - API_BASE:', window.API_BASE);
+</script>
+</body>
+</html>

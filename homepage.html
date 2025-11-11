@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>หน้าหลัก - Dosage System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=K2D:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "K2D", sans-serif;
+      background-color: #CBEAEB; 
+    }
+    
+    header {
+      background: linear-gradient(135deg, #39AC95 100%, #2E8B7A 0%);
+      display: flex;
+      align-items: center;
+      padding: 15px 30px;
+      position: relative;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .logo-container {
+      position: relative;
+      width: fit-content;
+      margin: 50px 0 0 20px;;
+      text-align: start;
+    }
+
+    .pills-background {
+      width: 210px;
+      opacity: 0.9;
+      margin-top: -60px;
+      transform: translateX(-25px);
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    nav {
+      margin-left: auto;
+      display: flex;
+      gap: 20px;
+    }
+    
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 17.5px;
+      transition: all 0.3s;
+      padding: 8px 15px;
+      border-radius: 8px;
+      position: relative;
+    }
+    
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+    
+    .login-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.3s;
+      margin-left: 20px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .login-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+    
+    .user-menu {
+      position: relative;
+      display: inline-block;
+      margin-left: 20px;
+    }
+
+    .user-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 12px;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      outline: none;
+    }
+
+    .user-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .user-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      min-width: 200px;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      margin-top: 5px;
+    }
+
+    .user-dropdown.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .user-dropdown a {
+      display: block;
+      padding: 12px 20px;
+      color: #2c3e50 !important;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+
+    .user-dropdown a:hover {
+      background: #f8f9fa;
+      color: #39AC95 !important;
+    }
+
+    .user-dropdown .divider {
+      height: 1px;
+      background: #e9ecef;
+      margin: 8px 0;
+    }
+    
+    .main-title {
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+      margin-top: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      color: #2c3e50;
+    }
+    
+    .pill-icon {
+      width: 45px;
+      height: 45px;
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+      border-radius: 22.5px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .pill-icon::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .main-container {
+      display: grid;
+      grid-template-columns: 1fr 1.7fr;
+      gap: 30px;
+      padding: 40px 60px;
+      align-items: start;
+    }
+    
+    .steps-container {
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      border: 3px solid #39AC95;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .steps-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #39AC95, #A8E6CF, #39AC95);
+    }
+    
+    .header-title, .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 15px;
+      color: #39AC95;
+    }
+    
+    .location-icon {
+      width: 28px;
+      height: 28px;
+      background: #FFEB3B;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      position: relative;
+      display: inline-block;
+    }
+    
+    .location-icon::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      background: #333;
+      border-radius: 50%;
+    }
+    
+    .play-icon {
+      width: 0;
+      height: 0;
+      border-left: 16px solid #39AC95;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      display: inline-block;
+      margin-left: 4px;
+    }
+    
+    .grid-box {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+      margin-top: 20px;
+      width: 100%;
+    }
+    
+    .actions {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .action-box {
+      border-radius: 20px;
+      padding: 30px 20px;
+      text-align: center;
+      font-weight: bold;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      border: 3px solid transparent;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+    }
+    
+    .action-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s;
+    }
+    
+    .action-box:hover::before {
+      left: 100%;
+    }
+    
+    .action-box:nth-child(1) {
+      background: linear-gradient(135deg, #39AC95 0%, #2E8B7A 100%);
+      color: white;
+    }
+    .action-box:nth-child(2) {
+      background: linear-gradient(135deg, #A8E6CF 0%, #88D8A3 100%);
+      color: #2c3e50;
+    }
+    .action-box:nth-child(3) {
+      background: linear-gradient(135deg, #A8E6CF 0%, #88D8A3 100%);
+      color: #2c3e50;
+    }
+    .action-box:nth-child(4) {
+      background: linear-gradient(135deg, #39AC95 0%, #2E8B7A 100%);
+      color: white;
+    }
+    
+    .action-box:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      border-color: #FFEB3B;
+    }
+    
+    .action-box .icon {
+      background: rgba(255, 255, 255, 0.95);
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
+    }
+    
+    .action-box:hover .icon {
+      transform: scale(1.1) rotate(10deg);
+    }
+    
+    .patient-icon {
+      width: 40px;
+      height: 40px;
+      background: #39AC95;
+      border-radius: 50%;
+      position: relative;
+    }
+    
+    .patient-icon::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 12px;
+      background: white;
+      border-radius: 50%;
+    }
+    
+    .patient-icon::after {
+      content: '';
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 14px;
+      background: white;
+      border-radius: 10px 10px 0 0;
+    }
+    
+    .search-icon {
+      width: 30px;
+      height: 30px;
+      border: 4px solid #39AC95;
+      border-radius: 50%;
+      position: relative;
+    }
+    
+    .search-icon::after {
+      content: '';
+      position: absolute;
+      top: 22px;
+      left: 22px;
+      width: 12px;
+      height: 4px;
+      background: #39AC95;
+      transform: rotate(45deg);
+      border-radius: 2px;
+    }
+    
+    .calculator-icon {
+      width: 35px;
+      height: 40px;
+      background: #39AC95;
+      border-radius: 6px;
+      position: relative;
+    }
+    
+    .calculator-icon::before {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 8px;
+      background: white;
+      border-radius: 2px;
+    }
+    
+    .calculator-icon::after {
+      content: '123';
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 8px;
+      font-weight: bold;
+    }
+    
+    .history-icon {
+      width: 35px;
+      height: 35px;
+      border: 4px solid #39AC95;
+      border-radius: 50%;
+      position: relative;
+    }
+    
+    .history-icon::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-origin: bottom;
+      transform: translate(-50%, -100%) rotate(45deg);
+      width: 2px;
+      height: 12px;
+      background: #39AC95;
+    }
+    
+    .history-icon::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-origin: bottom;
+      transform: translate(-50%, -100%);
+      width: 2px;
+      height: 8px;
+      background: #39AC95;
+    }
+    
+    .action-box span {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 10px 0 5px 0;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+    
+    .action-desc {
+      font-size: 13px;
+      opacity: 0.9;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    
+    .action-box:nth-child(1) .action-desc,
+    .action-box:nth-child(4) .action-desc {
+      color: rgba(255, 255, 255, 0.95);
+    }
+    .action-box:nth-child(2) .action-desc,
+    .action-box:nth-child(3) .action-desc {
+      color: rgba(44, 62, 80, 0.8);
+    }
+    
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      margin-top: 15px;
+    }
+    
+    .circle {
+      width: 45px;
+      height: 45px;
+      background: linear-gradient(135deg, #FFEB3B 0%, #FDD835 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 20px;
+      color: #2c3e50;
+      box-shadow: 0 4px 15px rgba(255, 235, 59, 0.4);
+      flex-shrink: 0;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 4px 15px rgba(255, 235, 59, 0.4); }
+      50% { box-shadow: 0 6px 25px rgba(255, 235, 59, 0.6); }
+      100% { box-shadow: 0 4px 15px rgba(255, 235, 59, 0.4); }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      width: 100%;
+    }
+    
+    .step-title {
+      font-weight: 700;
+      font-size: 17px;
+      color: #2c3e50;
+      margin-bottom: 6px;
+    }
+    
+    .step-desc {
+      font-size: 14px;
+      color: #7f8c8d;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .main-container {
+        grid-template-columns: 1fr;
+        padding: 20px;
+      }
+      
+      .grid-box {
+        grid-template-columns: 1fr;
+      }
+      
+      nav {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 15px;
+      }
+      
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .main-title {
+        flex-direction: column;
+        font-size: 28px;
+      }
+    }
+   .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .popup-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .popup-container {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      max-width: 450px;
+      width: 90%;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+      transform: scale(0.8);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .popup-overlay.show .popup-container {
+      transform: scale(1);
+    }
+
+    .popup-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      gap: 12px;
+    }
+
+    .popup-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: white;
+    }
+
+    .popup-icon.success {
+      background: linear-gradient(135deg, #27ae60, #2ecc71);
+    }
+
+    .popup-icon.warning {
+      background: linear-gradient(135deg, #f39c12, #e67e22);
+    }
+
+    .popup-icon.info {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+    }
+
+    .popup-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #2c3e50;
+      margin: 0;
+    }
+
+    .popup-message {
+      text-align: center;
+      color: #7f8c8d;
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 25px;
+      white-space: pre-line;
+    }
+
+    .popup-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .popup-btn {
+      padding: 10px 25px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 14px;
+    }
+
+    .popup-btn.primary {
+      background: linear-gradient(135deg, #39AC95, #2E8B7A);
+      color: white;
+    }
+
+    .popup-btn.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(57, 172, 149, 0.3);
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none
+    }
+    /* ========== MOBILE OPTIMIZATION ========== */
+
+@media (max-width: 768px) {
+  /* ===== Header ===== */
+  header {
+    padding: 8px 15px;
+    flex-wrap: wrap;
+  }
+
+  .logo-container {
+    margin: 0;
+  }
+
+  .pills-background {
+    width: 150px;
+    margin-top: -40px;
+    transform: translateX(-10px);
+  }
+
+  /* ===== Navigation ===== */
+  nav {
+    margin-left: 0;
+    width: 100%;
+    gap: 8px;
+    margin-top: 8px;
+    overflow-x: auto;
+    padding: 8px 0;
+  }
+
+  nav a {
+    font-size: 13px;
+    padding: 6px 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .user-menu {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+
+  .user-btn {
+    font-size: 11px;
+    padding: 6px 12px;
+  }
+
+  /* ===== Main Title ===== */
+  .main-title {
+    font-size: 22px;
+    margin: 20px 10px;
+    gap: 8px;
+  }
+
+  /* ===== Container ===== */
+  .container {
+    max-width: 90%;
+    padding: 15px;
+    margin: 20px auto;
+  }
+
+  /* ===== Form Elements ===== */
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="number"],
+  select,
+  textarea {
+    padding: 12px 12px;
+    font-size: 16px; /* ป้องกัน auto-zoom บน iOS */
+  }
+
+  /* ===== Buttons ===== */
+  button,
+  .btn,
+  .submit-btn,
+  .calculate-button {
+    padding: 12px 20px;
+    font-size: 15px;
+    min-height: 44px; /* Touch target size */
+    min-width: 44px;
+  }
+
+  /* ===== Cards & Sections ===== */
+  .medicine-cards {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .info-section {
+    padding: 15px;
+  }
+
+  /* ===== Tables ===== */
+  .table-header,
+  .table-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .table-header {
+    display: none; /* ซ่อน header บน mobile */
+  }
+
+  .table-row {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+
+  .table-row::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #39AC95;
+  }
+
+  /* ===== Modal ===== */
+  .modal-content {
+    width: 95%;
+    padding: 20px;
+  }
+
+  /* ===== Popup ===== */
+  .popup-container {
+    width: 90%;
+    padding: 20px;
+  }
+
+  /* ===== Grid Layouts ===== */
+  .patient-medicine-info {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-box {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .action-box {
+    min-height: 120px;
+    padding: 20px 15px;
+  }
+
+  .action-box .icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .action-box span {
+    font-size: 16px;
+  }
+
+  /* ===== Search ===== */
+  .search-container {
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  .search-input {
+    padding: 10px 12px;
+    font-size: 16px;
+  }
+
+  /* ===== dosage boxes ===== */
+  .dosage-boxes {
+    grid-template-columns: 1fr;
+  }
+
+  /* ===== Form rows ===== */
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .form-row .form-group {
+    margin-bottom: 15px;
+  }
+
+  .w3-col.s6 {
+    padding: 0 !important;
+    margin-bottom: 15px;
+  }
+}
+
+/* ========== EXTRA SMALL DEVICES ========== */
+
+@media (max-width: 480px) {
+  header {
+    padding: 6px 10px;
+  }
+
+  .pills-background {
+    width: 120px;
+    margin-top: -30px;
+    transform: translateX(-5px);
+  }
+
+  .main-title {
+    font-size: 18px;
+    margin: 15px 10px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  nav a {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+
+  button,
+  .btn,
+  .submit-btn,
+  .calculate-button {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  .form-label {
+    font-size: 14px;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="number"],
+  select,
+  textarea {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .container {
+    padding: 10px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  /* ป้องกัน double-tap zoom delay */
+  input,
+  select,
+  textarea,
+  button {
+    touch-action: manipulation;
+  }
+}
+
+/* ========== Landscape Mode ========== */
+
+@media (max-height: 500px) {
+  header {
+    padding: 6px 15px;
+  }
+
+  .pills-background {
+    width: 100px;
+    margin-top: -20px;
+  }
+
+  nav {
+    gap: 5px;
+  }
+
+  nav a {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo-container">
+    <img src="logopj.png" alt="Pills" class="pills-background">
+  </div>
+  <nav>
+    <a href="homepage.html">หน้าหลัก</a>
+    <a href="managepatientdata.html">จัดการข้อมูลผู้ป่วย</a>
+    <a href="medicine.html">ข้อมูลยา</a>
+    <a href="calculatemed.html">คำนวณปริมาณยา</a>
+    <a href="history.html">ประวัติการคำนวณยา</a>
+    <div id="authSection">
+      <a href="login.html" class="login-btn">เข้าสู่ระบบ</a>
+    </div>
+  </nav>
+</header>
+
+<div class="main-title">
+    <div class="pill-icon"></div>
+    <div class="title">ระบบคำนวณปริมาณยา</div>
+</div>
+<div style="text-align:center; font-size: 19px; margin-top:5px; font-weight:600; color: #7f8c8d;">Medical Dosage System</div>
+
+<div class="main-container">
+  <div class="steps-container">
+    <div class="header">
+      <div class="location-icon"></div>
+      <div class="title">เริ่มต้นใช้งาน</div>
+    </div>
+    <div style="text-align: center; font-size: 16px; margin-bottom: 25px; font-weight: 600; color: #7f8c8d;">
+      ขั้นตอนการใช้งานระบบคำนวณปริมาณยา
+    </div>
+    <div class="steps">
+      <div class="step-item">
+        <div class="circle">1</div>
+        <div class="step-text">
+          <div class="step-title">เพิ่มข้อมูลผู้ป่วย</div>
+          <div class="step-desc">ลงทะเบียนผู้ป่วยพร้อมข้อมูลอายุ น้ำหนัก</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="circle">2</div>
+        <div class="step-text">
+          <div class="step-title">เลือกยาจากฐานข้อมูล</div>
+          <div class="step-desc">ค้นหาและเลือกยาที่ต้องการคำนวณ</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="circle">3</div>
+        <div class="step-text">
+          <div class="step-title">คำนวณปริมาณยา</div>
+          <div class="step-desc">ระบบจะคำนวณปริมาณยาที่เหมาะสมให้อัตโนมัติ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <div class="header-title">
+      <div class="play-icon"></div>
+      การดำเนินการด่วน
+    </div>
+    <div class="grid-box">
+      <a href="managepatientdata.html" class="action-box">
+        <div class="icon">
+          <div class="patient-icon"></div>
+        </div>
+        <span>เพิ่มผู้ป่วยใหม่</span>
+        <div class="action-desc">ลงทะเบียนผู้ป่วยใหม่เข้าสู่ระบบ</div>
+      </a>
+      <a href="medicine.html" class="action-box">
+        <div class="icon">
+          <div class="search-icon"></div>
+        </div>
+        <span>ค้นหา</span>
+        <div class="action-desc">ค้นหาข้อมูลยา</div>
+      </a>
+      <a href="calculatemed.html" class="action-box">
+        <div class="icon">
+          <div class="calculator-icon"></div>
+        </div>
+        <span>คำนวณปริมาณยา</span>
+        <div class="action-desc">คำนวณปริมาณยาสำหรับผู้ป่วย</div>
+      </a>
+      <a href="history.html" class="action-box">
+        <div class="icon">
+          <div class="history-icon"></div>
+        </div>
+        <span>ประวัติ</span>
+        <div class="action-desc">ตรวจประวัติการคำนวณ</div>
+      </a>
+    </div>
+<div class="popup-overlay" id="logoutPopup">
+  <div class="popup-container">
+    <button class="popup-close" onclick="closeLogoutPopup()"><i class="fas fa-times"></i></button>
+    <div class="popup-header">
+      <div class="popup-icon warning"><i class="fas fa-sign-out-alt"></i></div>
+      <div class="popup-title">ออกจากระบบ</div>
+    </div>
+    <div class="popup-message">คุณต้องการออกจากระบบหรือไม่?</div>
+    <div class="popup-buttons">
+      <button class="popup-btn primary" onclick="confirmLogout()">ตกลง</button>
+      <button class="popup-btn primary" onclick="closeLogoutPopup()">ยกเลิก</button>
+    </div>
+  </div>
+</div>
+<div class="popup-overlay" id="resultPopup">
+  <div class="popup-container">
+    <button class="popup-close" onclick="closeResultPopup()"><i class="fas fa-times"></i></button>
+    <div class="popup-header">
+      <div class="popup-icon success"><i class="fas fa-check"></i></div>
+      <div class="popup-title" id="resultTitle"></div>
+    </div>
+    <div class="popup-message" id="resultMsg"></div>
+    <div class="popup-buttons">
+      <button class="popup-btn primary" onclick="closeResultPopup()">ปิด</button>
+    </div>
+  </div>
+</div>
+<script src="clienthelper.js"></script>
+<script src="app.js"></script> 
+<script src="homepage.js"></script> 
+</body>
+</html>

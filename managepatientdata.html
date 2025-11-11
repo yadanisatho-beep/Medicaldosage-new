@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta charset="UTF-8" />
+  <title>จัดการผู้ป่วย - Medical Dosage System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=K2D:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+      body {
+      margin: 0;
+      padding: 0;
+      font-family: "K2D", sans-serif;
+      background-color: #CBEAEB; 
+    }
+    
+    header {
+      background: linear-gradient(135deg, #39AC95 100%, #2E8B7A 0%);
+      display: flex;
+      align-items: center;
+      padding: 15px 30px;
+      position: relative;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .logo-container {
+      position: relative;
+      width: fit-content;
+      margin: 50px 0 0 20px;;
+      text-align: start;
+    }
+
+    .pills-background {
+      width: 210px;
+      opacity: 0.9;
+      margin-top: -60px;
+      transform: translateX(-25px);
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+  
+    nav {
+      margin-left: auto;
+      display: flex;
+      gap: 20px;
+    }
+    
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 17.5px;
+      transition: all 0.3s;
+      padding: 8px 15px;
+      border-radius: 8px;
+      position: relative;
+    }
+    
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+    
+    .login-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.3s;
+      margin-left: 20px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .login-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+    
+    .main-title {
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      margin-top: 50px;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      color: #2c3e50;
+    }
+    
+    input[type="text"], input[type="number"] {
+      border: none;
+      box-shadow: 1px 1px 4px #96a1ac;
+      width: 100%;
+      padding: 15px;
+      font-size: 16px;
+      border-radius: 8px;
+      font-family: "K2D", sans-serif;
+      background-color: white;
+    }
+
+    input::placeholder {
+      color: #999;
+    }
+
+    select {
+      border: none;
+      box-shadow: 1px 1px 4px #96a1ac;
+      width: 100%;
+      padding: 15px;
+      font-size: 16px;
+      border-radius: 8px;
+      font-family: "K2D", sans-serif;
+      background-color: white;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 15px center;
+      padding-right: 40px;
+      color: #999;
+    }
+
+    select:valid:not([value=""]) {
+      color: #495057;
+    }
+
+    select option {
+      color: #495057;
+    }
+
+    .centered-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px;
+      color: #2c3e50;
+    }
+
+    .button-container {
+      display: flex; 
+      gap: 15px; 
+      margin-bottom: 30px; 
+      justify-content: center;
+    }
+
+    .nav-button {
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .nav-button-content {
+      background-color: #D1F0F2; 
+      padding: 15px 25px; 
+      border-radius: 25px; 
+      box-shadow: 2px 2px 8px #ccc; 
+      font-weight: bold;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .nav-button-content:hover {
+      transform: translateY(-2px);
+      box-shadow: 3px 3px 12px #aaa;
+    }
+
+    .nav-button-content.secondary {
+      background-color: #FCE4E4;
+    }
+
+    .form-section {
+      max-width: 780px; 
+      margin: 0 auto;
+    }
+
+    .form-row {
+      margin-top: 25px;
+    }
+
+    .form-label {
+      font-weight: bold;
+      margin-bottom: 8px;
+      display: block;
+      font-size: 16px;
+    }
+
+    .submit-button {
+      background-color: #2c3e50;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 40px;
+    }
+
+    .submit-button:hover {
+      background-color: #34495e;
+      transform: translateY(-2px);
+    }
+
+    .description-text {
+      color: rgb(108, 107, 107); 
+      text-align: center;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+   .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .popup-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .popup-container {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      max-width: 450px;
+      width: 90%;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+      transform: scale(0.8);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .popup-overlay.show .popup-container {
+      transform: scale(1);
+    }
+
+    .popup-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      gap: 12px;
+    }
+
+    .popup-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: white;
+    }
+
+    .popup-icon.success {
+      background: linear-gradient(135deg, #27ae60, #2ecc71);
+    }
+
+    .popup-icon.warning {
+      background: linear-gradient(135deg, #f39c12, #e67e22);
+    }
+
+    .popup-icon.info {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+    }
+
+    .popup-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #2c3e50;
+      margin: 0;
+    }
+
+    .popup-message {
+      text-align: center;
+      color: #7f8c8d;
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 25px;
+      white-space: pre-line;
+    }
+
+    .popup-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .popup-btn {
+      padding: 10px 25px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 14px;
+    }
+
+    .popup-btn.primary {
+      background: linear-gradient(135deg, #39AC95, #2E8B7A);
+      color: white;
+    }
+
+    .popup-btn.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(57, 172, 149, 0.3);
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: #95a5a6;
+    }
+
+    .popup-close:hover {
+      color: #2c3e50;
+    }
+
+    .user-menu {
+      position: relative;
+      display: inline-block;
+      margin-left: 20px;
+    }
+
+    .user-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 12px;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      outline: none;
+    }
+
+    .user-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .user-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      min-width: 200px;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      margin-top: 5px;
+    }
+
+    .user-dropdown.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .user-dropdown a {
+      display: block;
+      padding: 12px 20px;
+      color: #2c3e50 !important;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+
+    .user-dropdown a:hover {
+      background: #f8f9fa;
+      color: #39AC95 !important;
+    }
+
+    .user-dropdown .divider {
+      height: 1px;
+      background: #e9ecef;
+      margin: 8px 0;
+    }
+    /* เพิ่มใน <style> ของ managepatientdata.html */
+
+    .disease-suggestions {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        max-height: 300px;
+        overflow-y: auto;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 1000;
+        margin-bottom: 15px;
+        display: none;
+    }
+
+    .suggestion-item {
+        padding: 12px 15px;
+        cursor: pointer;
+        border-bottom: 1px solid #f0f0f0;
+        transition: background 0.2s;
+    }
+
+    .suggestion-item:hover {
+        background: #f8f9fa;
+    }
+
+    .suggestion-item:last-child {
+        border-bottom: none;
+    }
+
+    .disease-info {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .disease-title {
+        font-weight: 600;
+        color: #2c3e50;
+        font-size: 15px;
+    }
+
+    .disease-meta {
+        display: flex;
+        gap: 10px;
+        font-size: 13px;
+    }
+
+    .disease-code {
+        color: #7f8c8d;
+        font-family: 'Courier New', monospace;
+    }
+
+    .disease-category {
+        color: #39AC95;
+        font-weight: 500;
+    }
+
+    /* ทำให้ parent container เป็น relative */
+    .form-row .w3-col {
+    margin-top: 8px;
+    margin-bottom: 13px;
+    }
+/* ========== MOBILE OPTIMIZATION ========== */
+
+@media (max-width: 768px) {
+  /* ===== Header ===== */
+  header {
+    padding: 8px 15px;
+    flex-wrap: wrap;
+  }
+
+  .logo-container {
+    margin: 0;
+  }
+
+  .pills-background {
+    width: 150px;
+    margin-top: -40px;
+    transform: translateX(-10px);
+  }
+
+  /* ===== Navigation ===== */
+  nav {
+    margin-left: 0;
+    width: 100%;
+    gap: 8px;
+    margin-top: 8px;
+    overflow-x: auto;
+    padding: 8px 0;
+  }
+
+  nav a {
+    font-size: 13px;
+    padding: 6px 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .user-menu {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+
+  .user-btn {
+    font-size: 11px;
+    padding: 6px 12px;
+  }
+
+  /* ===== Main Title ===== */
+  .main-title {
+    font-size: 22px;
+    margin: 20px 10px;
+    gap: 8px;
+  }
+
+  /* ===== Container ===== */
+  .container {
+    max-width: 90%;
+    padding: 15px;
+    margin: 20px auto;
+  }
+
+  /* ===== Form Elements ===== */
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="number"],
+  select,
+  textarea {
+    padding: 12px 12px;
+    font-size: 16px; /* ป้องกัน auto-zoom บน iOS */
+  }
+
+  /* ===== Buttons ===== */
+  button,
+  .btn,
+  .submit-btn,
+  .calculate-button {
+    padding: 12px 20px;
+    font-size: 15px;
+    min-height: 44px; /* Touch target size */
+    min-width: 44px;
+  }
+
+  /* ===== Cards & Sections ===== */
+  .medicine-cards {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .info-section {
+    padding: 15px;
+  }
+
+  /* ===== Tables ===== */
+  .table-header,
+  .table-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .table-header {
+    display: none; /* ซ่อน header บน mobile */
+  }
+
+  .table-row {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+
+  .table-row::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #39AC95;
+  }
+
+  /* ===== Modal ===== */
+  .modal-content {
+    width: 95%;
+    padding: 20px;
+  }
+
+  /* ===== Popup ===== */
+  .popup-container {
+    width: 90%;
+    padding: 20px;
+  }
+
+  /* ===== Grid Layouts ===== */
+  .patient-medicine-info {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-box {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .action-box {
+    min-height: 120px;
+    padding: 20px 15px;
+  }
+
+  .action-box .icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .action-box span {
+    font-size: 16px;
+  }
+
+  /* ===== Search ===== */
+  .search-container {
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  .search-input {
+    padding: 10px 12px;
+    font-size: 16px;
+  }
+
+  /* ===== dosage boxes ===== */
+  .dosage-boxes {
+    grid-template-columns: 1fr;
+  }
+
+  /* ===== Form rows ===== */
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .form-row .form-group {
+    margin-bottom: 15px;
+  }
+
+  .w3-col.s6 {
+    padding: 0 !important;
+    margin-bottom: 15px;
+  }
+}
+
+/* ========== EXTRA SMALL DEVICES ========== */
+
+@media (max-width: 480px) {
+  header {
+    padding: 6px 10px;
+  }
+
+  .pills-background {
+    width: 120px;
+    margin-top: -30px;
+    transform: translateX(-5px);
+  }
+
+  .main-title {
+    font-size: 18px;
+    margin: 15px 10px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  nav a {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+
+  button,
+  .btn,
+  .submit-btn,
+  .calculate-button {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  .form-label {
+    font-size: 14px;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="number"],
+  select,
+  textarea {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .container {
+    padding: 10px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  /* ป้องกัน double-tap zoom delay */
+  input,
+  select,
+  textarea,
+  button {
+    touch-action: manipulation;
+  }
+}
+
+/* ========== Landscape Mode ========== */
+
+@media (max-height: 500px) {
+  header {
+    padding: 6px 15px;
+  }
+
+  .pills-background {
+    width: 100px;
+    margin-top: -20px;
+  }
+
+  nav {
+    gap: 5px;
+  }
+
+  nav a {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}
+  </style>
+  </head>
+<body>
+<header>
+  <div class="logo-container">
+    <img src="logopj.png" alt="Pills" class="pills-background">
+  </div>
+  <nav>
+    <a href="homepage.html">หน้าหลัก</a>
+    <a href="managepatientdata.html">จัดการข้อมูลผู้ป่วย</a>
+    <a href="medicine.html">ข้อมูลยา</a>
+    <a href="calculatemed.html">คำนวณปริมาณยา</a>
+    <a href="history.html">ประวัติการคำนวณยา</a>
+    <span id="authSection"></span>
+  </nav>
+</header>
+
+<div class="main-title">
+    <i class="fa fa-file"></i>
+    <div class="title">จัดการข้อมูลผู้ป่วย</div>
+</div>
+
+<div class="centered-container">
+    <div class="button-container">
+        <a href="managepatientdata.html" class="nav-button">
+            <div class="nav-button-content">
+                + เพิ่มข้อมูลผู้ป่วยใหม่
+            </div>
+        </a>
+        <a href="patientlist.html" class="nav-button">
+            <div class="nav-button-content secondary">
+                รายชื่อผู้ป่วย
+            </div>
+        </a>
+    </div>
+
+  <p class="description-text">กรอกข้อมูลพื้นฐานของผู้ป่วย</p>
+
+  <form id="patientForm" class="form-section">
+    <div class="w3-row form-row disease-row">
+      <div class="w3-col s6" style="padding-right: 10px;">
+        <label class="form-label">
+          <i class="fa fa-users"></i> ชื่อผู้ป่วย
+        </label>
+        <input id="name" name="name" class="w3-input w3-round w3-white" type="text" placeholder="กรอกชื่อ - นามสกุล" required>
+    </div>
+
+    <div class="w3-col s6" style="padding-left: 10px; position: relative;">
+          <label class="form-label">
+            <i class="fa fa-stethoscope"></i> โรคประจำตัว
+          </label>
+          <div style="position: relative;">
+            <input id="disease" type="text" name="disease" 
+                   placeholder="พิมพ์ชื่อโรคเพื่อค้นหา..." autocomplete="off">
+            <input type="hidden" id="diseaseCode" name="diseaseCode">
+            
+            <!-- Suggestions Container -->
+            <div class="disease-suggestions" id="diseaseSuggestionsContainer"></div>
+          </div>
+        </div>
+      </div>
+
+    <div class="w3-row form-row">
+      <div class="w3-col s6" style="padding-right: 10px;">
+        <label class="form-label">
+          <i class="fa fa-calendar"></i> อายุ (ปี)
+        </label>
+        <input id="age" class="w3-input w3-round w3-white" type="number" min="0" placeholder="0">
+      </div>
+      <div class="w3-col s6" style="padding-left: 10px;">
+        <label class="form-label">
+          <i class="fa fa-balance-scale"></i> น้ำหนัก (กิโลกรัม)
+        </label>
+        <input id="weight" class="w3-input w3-round w3-white" type="number" step="0.1" min="0" placeholder="0.0">
+      </div>
+    </div>
+
+    <div class="w3-center">
+      <button class="submit-button" type="submit">
+        บันทึกข้อมูล
+      </button>
+    </div>
+  </form>
+</div>
+
+<div class="popup-overlay" id="logoutPopup">
+  <div class="popup-container">
+    <button class="popup-close" onclick="closeLogoutPopup()"><i class="fas fa-times"></i></button>
+    <div class="popup-header">
+      <div class="popup-icon warning"><i class="fas fa-sign-out-alt"></i></div>
+      <div class="popup-title">ออกจากระบบ</div>
+    </div>
+    <div class="popup-message">คุณต้องการออกจากระบบหรือไม่?</div>
+    <div class="popup-buttons">
+      <button class="popup-btn primary" onclick="confirmLogout()">ตกลง</button>
+      <button class="popup-btn primary" onclick="closeLogoutPopup()">ยกเลิก</button>
+    </div>
+  </div>
+</div>
+
+<div class="popup-overlay" id="resultPopup">
+  <div class="popup-container">
+    <button class="popup-close" onclick="closeResultPopup()"><i class="fas fa-times"></i></button>
+    <div class="popup-header">
+      <div class="popup-icon success"><i class="fas fa-check"></i></div>
+      <div class="popup-title" id="resultTitle"></div>
+    </div>
+    <div class="popup-message" id="resultMsg"></div>
+    <div class="popup-buttons">
+      <button class="popup-btn primary" onclick="closeResultPopup()">ปิด</button>
+    </div>
+  </div>
+</div>
+<script src="clienthelper.js"></script>
+<script src="managepatientdata.js"></script>
+</body>
+</html>

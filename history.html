@@ -1,0 +1,1117 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ประวัติการคำนวณยา - Medical Dosage System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=K2D:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "K2D", sans-serif;
+      background-color: #CBEAEB; 
+    }
+    
+    header {
+      background: linear-gradient(135deg, #39AC95 100%, #2E8B7A 0%);
+      display: flex;
+      align-items: center;
+      padding: 15px 30px;
+      position: relative;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .logo-container {
+      position: relative;
+      width: fit-content;
+      margin: 50px 0 0 20px;
+      text-align: start;
+    }
+
+    .pills-background {
+      width: 210px;
+      opacity: 0.9;
+      margin-top: -60px;
+      transform: translateX(-25px);
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    nav {
+      margin-left: auto;
+      display: flex;
+      gap: 20px;
+    }
+    
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 17.5px;
+      transition: all 0.3s;
+      padding: 8px 15px;
+      border-radius: 8px;
+      position: relative;
+    }
+    
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+    
+    .login-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.3s;
+      margin-left: 20px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .login-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+    
+    .main-title {
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+      margin-top: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      color: #2c3e50;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .stats-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 30px 0 40px 0;
+      flex-wrap: wrap;
+    }
+
+    .stat-card {
+      background: rgba(255, 192, 203, 0.3);
+      border-radius: 20px;
+      padding: 20px 30px;
+      text-align: center;
+      min-width: 120px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-number {
+      font-size: 24px;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .search-container {
+      max-width: 800px;
+      margin: 0 auto 30px auto;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-row {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .search-field {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 250px;
+    }
+
+    .search-field i {
+      color: #666;
+      font-size: 18px;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 12px 15px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+      font-family: "K2D", sans-serif;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: #39AC95;
+    }
+
+    .date-input {
+      padding: 12px 15px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+      font-family: "K2D", sans-serif;
+      width: 150px;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-family: "K2D", sans-serif;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-search {
+      background: #39AC95;
+      color: white;
+    }
+
+    .btn-search:hover {
+      background: #2E8B7A;
+    }
+
+    .btn-clear {
+      background: #dc3545;
+      color: white;
+    }
+
+    .btn-clear:hover {
+      background: #c82333;
+    }
+
+    .content-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .history-table {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+
+    .table-header {
+      background: #39AC95;
+      color: white;
+      padding: 15px;
+      font-weight: bold;
+      display: grid;
+      grid-template-columns: 2fr 1.5fr 2fr 1.5fr 1.5fr 100px;
+      gap: 15px;
+      font-size: 14px;
+    }
+
+    .table-row {
+      padding: 15px;
+      display: grid;
+      grid-template-columns: 2fr 1.5fr 2fr 1.5fr 1.5fr 100px;
+      gap: 15px;
+      border-bottom: 1px solid #eee;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .table-row:nth-child(even) {
+      background: #f8f9fa;
+    }
+
+    .table-row:hover {
+      background: #e8f5f3;
+    }
+
+    .delete-btn {
+      background: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .delete-btn:hover {
+      background: #c82333;
+    }
+
+    .no-data {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+      font-size: 16px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.3s;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal.show {
+      display: flex !important;
+    }
+
+    .modal-content {
+      background-color: white;
+      margin: 15% auto;
+      padding: 30px;
+      border-radius: 15px;
+      width: 400px;
+      max-width: 90%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      animation: slideIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-header {
+      font-size: 24px;
+      font-weight: bold;
+      color: #dc3545;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .modal-body {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .modal-btn {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-family: "K2D", sans-serif;
+      cursor: pointer;
+      transition: all 0.3s;
+      min-width: 100px;
+      pointer-events: auto; 
+    }
+
+    .modal-btn-confirm {
+      background: #dc3545;
+      color: white;
+    }
+
+    .modal-btn-confirm:hover {
+      background: #c82333;
+    }
+
+    .modal-btn-cancel {
+      background: #6c757d;
+      color: white;
+    }
+
+    .modal-btn-cancel:hover {
+      background: #5a6268;
+    }
+
+    .success-message {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #28a745;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 10px;
+      z-index: 1001;
+      display: none;
+      animation: slideInRight 0.3s;
+    }
+
+    @keyframes slideInRight {
+      from { transform: translateX(100%); }
+      to { transform: translateX(0); }
+    }
+
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .popup-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .popup-container {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      max-width: 450px;
+      width: 90%;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+      transform: scale(0.8);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .popup-overlay.show .popup-container {
+      transform: scale(1);
+    }
+
+    .popup-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      gap: 12px;
+    }
+
+    .popup-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: white;
+    }
+
+    .popup-icon.success {
+      background: linear-gradient(135deg, #27ae60, #2ecc71);
+    }
+
+    .popup-icon.warning {
+      background: linear-gradient(135deg, #f39c12, #e67e22);
+    }
+
+    .popup-icon.info {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+    }
+
+    .popup-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #2c3e50;
+      margin: 0;
+    }
+
+    .popup-message {
+      text-align: center;
+      color: #7f8c8d;
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 25px;
+      white-space: pre-line;
+    }
+
+    .popup-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .popup-btn {
+      padding: 10px 25px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 14px;
+      font-family: "K2D", sans-serif;
+    }
+
+    .popup-btn.primary {
+      background: linear-gradient(135deg, #39AC95, #2E8B7A);
+      color: white;
+    }
+
+    .popup-btn.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(57, 172, 149, 0.3);
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #999;
+    }
+
+    .popup-close:hover {
+      color: #333;
+    }
+
+    .user-menu {
+      position: relative;
+      display: inline-block;
+      margin-left: 20px;
+    }
+
+    .user-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 12px;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      outline: none;
+    }
+
+    .user-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .user-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      min-width: 200px;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      margin-top: 5px;
+    }
+
+    .user-dropdown.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .user-dropdown a {
+      display: block;
+      padding: 12px 20px;
+      color: #2c3e50 !important;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+
+    .user-dropdown a:hover {
+      background: #f8f9fa;
+      color: #39AC95 !important;
+    }
+
+    .user-dropdown .divider {
+      height: 1px;
+      background: #e9ecef;
+      margin: 8px 0;
+    }
+
+    /* ========== DETAIL MODAL STYLES ========== */
+    
+    .detail-modal-content {
+      max-width: 800px;
+      width: 95%;
+      max-height: 90vh;
+      overflow-y: auto;
+      margin: auto;
+    }
+
+    .detail-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 30px;
+      background: linear-gradient(135deg, #39AC95, #2E8B7A);
+      color: white;
+      border-radius: 15px 15px 0 0;
+      margin: -30px -30px 20px -30px;
+    }
+
+    .detail-modal-header h2 {
+      margin: 0;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .detail-close-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      font-size: 18px;
+    }
+
+    .detail-close-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: rotate(90deg);
+    }
+
+    .detail-modal-body {
+      padding: 0 10px;
+    }
+
+    .detail-section {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-left: 4px solid #39AC95;
+    }
+
+    .detail-section h3 {
+      color: #2c3e50;
+      margin: 0 0 15px 0;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #dee2e6;
+    }
+
+    .detail-row {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 15px;
+      padding: 12px 0;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .detail-row:last-child {
+      border-bottom: none;
+    }
+
+    .detail-label {
+      color: #666;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+    }
+
+    .detail-value {
+      color: #2c3e50;
+      font-weight: 500;
+    }
+
+    .detail-value.highlight {
+      color: #39AC95;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .override-section {
+      background: #fff3cd;
+      border-left-color: #f39c12;
+    }
+
+    .override-section h3 {
+      color: #856404;
+    }
+
+    .override-reason {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      color: #856404;
+      line-height: 1.6;
+      border: 1px solid #ffeaa7;
+    }
+
+    .detail-modal-footer {
+      display: flex;
+      justify-content: center;
+      padding: 20px 0 0 0;
+      border-top: 2px solid #e9ecef;
+      margin-top: 20px;
+    }
+
+    /* ========== MOBILE OPTIMIZATION ========== */
+
+    @media (max-width: 768px) {
+      header {
+        padding: 8px 15px;
+        flex-wrap: wrap;
+      }
+
+      .logo-container {
+        margin: 0;
+      }
+
+      .pills-background {
+        width: 150px;
+        margin-top: -40px;
+        transform: translateX(-10px);
+      }
+
+      nav {
+        margin-left: 0;
+        width: 100%;
+        gap: 8px;
+        margin-top: 8px;
+        overflow-x: auto;
+        padding: 8px 0;
+      }
+
+      nav a {
+        font-size: 13px;
+        padding: 6px 10px;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .user-menu {
+        margin-left: 0;
+        margin-top: 8px;
+      }
+
+      .user-btn {
+        font-size: 11px;
+        padding: 6px 12px;
+      }
+
+      .main-title {
+        font-size: 22px;
+        margin: 20px 10px;
+        gap: 8px;
+      }
+
+      .container {
+        max-width: 90%;
+        padding: 15px;
+        margin: 20px auto;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      input[type="email"],
+      input[type="number"],
+      select,
+      textarea {
+        padding: 12px 12px;
+        font-size: 16px;
+      }
+
+      button,
+      .btn,
+      .submit-btn,
+      .calculate-button {
+        padding: 12px 20px;
+        font-size: 15px;
+        min-height: 44px;
+        min-width: 44px;
+      }
+
+      .table-header,
+      .table-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 12px;
+      }
+
+      .table-header {
+        display: none;
+      }
+
+      .table-row {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-bottom: 15px;
+      }
+
+      .modal-content {
+        width: 95%;
+        padding: 20px;
+      }
+
+      .detail-modal-content {
+        width: 98%;
+        max-height: 95vh;
+        padding: 15px;
+      }
+
+      .detail-modal-header {
+        padding: 15px;
+        margin: -15px -15px 15px -15px;
+      }
+
+      .detail-modal-header h2 {
+        font-size: 18px;
+      }
+
+      .detail-section {
+        padding: 15px;
+      }
+
+      .detail-section h3 {
+        font-size: 16px;
+      }
+
+      .detail-row {
+        grid-template-columns: 1fr;
+        gap: 5px;
+        padding: 10px 0;
+      }
+
+      .detail-label {
+        font-size: 13px;
+        color: #39AC95;
+      }
+
+      .detail-value {
+        font-size: 15px;
+        padding-left: 10px;
+      }
+
+      .popup-container {
+        width: 90%;
+        padding: 20px;
+      }
+
+      .search-container {
+        padding: 15px;
+        max-width: 100%;
+      }
+
+      .search-input {
+        padding: 10px 12px;
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 6px 10px;
+      }
+
+      .pills-background {
+        width: 120px;
+        margin-top: -30px;
+        transform: translateX(-5px);
+      }
+
+      .main-title {
+        font-size: 18px;
+        margin: 15px 10px;
+      }
+
+      .subtitle {
+        font-size: 14px;
+      }
+
+      nav a {
+        font-size: 12px;
+        padding: 5px 8px;
+      }
+
+      button,
+      .btn,
+      .submit-btn,
+      .calculate-button {
+        padding: 10px 16px;
+        font-size: 14px;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      input[type="email"],
+      input[type="number"],
+      select,
+      textarea {
+        font-size: 16px;
+        padding: 10px;
+      }
+
+      .container {
+        padding: 10px;
+      }
+
+      input,
+      select,
+      textarea,
+      button {
+        touch-action: manipulation;
+      }
+    }
+
+    @media (max-height: 500px) {
+      header {
+        padding: 6px 15px;
+      }
+
+      .pills-background {
+        width: 100px;
+        margin-top: -20px;
+      }
+
+      nav {
+        gap: 5px;
+      }
+
+      nav a {
+        padding: 4px 8px;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="logo-container">
+    <img src="logopj.png" alt="Pills" class="pills-background">
+  </div>
+  <nav>
+    <a href="homepage.html">หน้าหลัก</a>
+    <a href="managepatientdata.html">จัดการข้อมูลผู้ป่วย</a>
+    <a href="medicine.html">ข้อมูลยา</a>
+    <a href="calculatemed.html">คำนวณปริมาณยา</a>
+    <a href="history.html">ประวัติการคำนวณยา</a>
+    <span id="authSection"></span>
+  </nav>
+</header>
+
+<div class="content-wrapper">
+  <div class="main-title">
+    <i class="fa fa-history"></i>
+    <div class="title">ประวัติการคำนวณยา</div>
+  </div>
+
+  <div class="subtitle">
+    ประวัติการคำนวณยาทั้งหมด <span id="totalRecordsText">0</span> รายการ
+  </div>
+
+  <div class="stats-container">
+    <div class="stat-card">
+      <div class="stat-number" id="totalRecords">0</div>
+      <div class="stat-label">รายการทั้งหมด</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="todayRecords">0</div>
+      <div class="stat-label">วันนี้</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="uniquePatients">0</div>
+      <div class="stat-label">ผู้ป่วย</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="uniqueMedicines">0</div>
+      <div class="stat-label">ชนิดยา</div>
+    </div>
+  </div>
+
+  <div class="search-container">
+    <div class="search-row">
+      <div class="search-field">
+        <i class="fa fa-search"></i>
+        <input type="text" class="search-input" id="searchInput" placeholder="ค้นหาด้วยชื่อผู้ป่วย...">
+      </div>
+      <div class="search-field">
+        <i class="fa fa-calendar"></i>
+        <span style="font-weight: 500;">เลือกวันที่:</span>
+        <input type="date" class="date-input" id="dateInput">
+      </div>
+    </div>
+    <div class="action-buttons">
+      <button class="btn btn-search" onclick="searchHistory()">
+        <i class="fa fa-search"></i>
+        ค้นหา
+      </button>
+      <button class="btn btn-clear" onclick="deleteAllHistory()">
+        <i class="fa fa-trash"></i>
+        ลบทั้งหมด
+      </button>
+    </div>
+  </div>
+  
+  <div class="history-table">
+    <div class="table-header">
+      <div>วันที่/เวลา</div>
+      <div>ผู้ป่วย</div>
+      <div>ยา</div>
+      <div>ปริมาณ(มก./ครั้ง)</div>
+      <div>ความถี่</div>
+      <div>จัดการ</div>
+    </div>
+    <div id="historyTableBody">
+      <div class="no-data">
+        <i class="fa fa-history" style="font-size: 48px; color: #ccc; margin-bottom: 15px;"></i>
+        <div>ไม่มีข้อมูลประวัติการคำนวณ</div>
+        <div style="font-size: 14px; color: #999; margin-top: 5px;">ข้อมูลจะแสดงหลังจากทำการคำนวณปริมาณยา</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Detail Modal -->
+<div id="detailModal" class="modal">
+  <div class="modal-content detail-modal-content">
+    <div class="detail-modal-header">
+      <h2><i class="fas fa-file-medical-alt"></i> รายละเอียดการคำนวณยา</h2>
+      <button class="detail-close-btn" onclick="closeDetailModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <div class="detail-modal-body" id="detailContent">
+    </div>
+    
+    <div class="detail-modal-footer">
+      <button class="btn btn-search" onclick="closeDetailModal()">
+        <i class="fas fa-times"></i>
+        ปิด
+      </button>
+    </div>
+  </div>
+</div>
+<div id="successMessage" class="success-message">
+  <i class="fa fa-check-circle"></i>
+  <span id="successText">ลบข้อมูลสำเร็จ!</span>
+</div>
+
+<div id="deleteModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <i class="fa fa-exclamation-triangle"></i>
+      ยืนยันการลบ
+    </div>
+    <div class="modal-body" id="deleteModalBody">
+      คุณต้องการลบรายการนี้หรือไม่?
+    </div>
+    <div class="modal-buttons">
+      <button class="modal-btn modal-btn-confirm" onclick="confirmDelete()">ลบ</button>
+      <button class="modal-btn modal-btn-cancel" onclick="closeDeleteModal()">ยกเลิก</button>
+    </div>
+  </div>
+</div>
+<div class="popup-overlay" id="logoutPopup">
+  <div class="popup-container">
+    <button class="popup-close" onclick="closeLogoutPopup()"><i class="fas fa-times"></i></button>
+    <div class="popup-header">
+      <div class="popup-icon warning"><i class="fas fa-sign-out-alt"></i></div>
+      <div class="popup-title">ออกจากระบบ</div>
+    </div>
+    <div class="popup-message">คุณต้องการออกจากระบบหรือไม่?</div>
+    <div class="popup-buttons">
+      <button class="popup-btn primary" onclick="confirmLogout()">ตกลง</button>
+      <button class="popup-btn primary" onclick="closeLogoutPopup()">ยกเลิก</button>
+    </div>
+  </div>
+</div>
+<div class="popup-overlay" id="resultPopup">
+  <div class="popup-container">
+    <button class="popup-close" onclick="closeResultPopup()"><i class="fas fa-times"></i></button>
+    <div class="popup-header">
+      <div class="popup-icon success"><i class="fas fa-check"></i></div>
+      <div class="popup-title" id="resultTitle"></div>
+    </div>
+    <div class="popup-message" id="resultMsg"></div>
+    <div class="popup-buttons">
+      <button class="popup-btn primary" onclick="closeResultPopup()">ปิด</button>
+    </div>
+  </div>
+</div>
+<script src="clienthelper.js"></script>
+<script src="history.js"></script>
+</body>
+</html>
